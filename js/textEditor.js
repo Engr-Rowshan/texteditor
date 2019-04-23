@@ -1,15 +1,18 @@
 (function( $ ) {
- 
-    $.fn.textEditor = function(options) {
-        let originalObjects = new Array();
-        let createdObjects = new Array();
 
+    $.fn.textEditor = function(options) {
+
+        let originalObjects = new Array();  //to hold all the original objects
+        let createdObjects = new Array();   //to hold all the created objects
+
+        //Get the options from user
         let settings = $.extend({
             // These are the defaults.
-            css: true,
-            height: '200px',
-            width: '100%',
-            backgroundColor: "white"
+            css: true,                  //Set if default css file will be loaded with plugins
+            height: '200px',            //Default Height fo container
+            width: '100%',              //Default width of the container
+            backgroundColor: "white",   //Default Backgroud Color of Container
+            buttos: ['bold']
         }, options );
 
         //Load Default Css file
@@ -20,6 +23,8 @@
                 href: "css/textEditor.css"
              }).appendTo("head");
         }
+
+
 
 
         //This will confirm plugin work with multi object
@@ -41,6 +46,11 @@
             container.append(toolBar).append(frameBox);
 
             container.insertBefore(e);
+        }
+
+        //A function to create button
+        function createButton(btnTitle,btnClass,btnIcon,btnCallback){
+            
         }
 
         // // Greenify the collection based on the settings variable.
