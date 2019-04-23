@@ -29,28 +29,38 @@
 
         //This will confirm plugin work with multi object
         return this.each(function(){
-            create(this);
+            create.apply(this);
         });
 
 
         //Create the elements
-        function create(e){
-            originalObjects.push(e);
+        function create(){
+            originalObjects.push(this);
             let container = $('<div></div>').addClass('textEditor').css('width',settings.width).css('height',settings.height);
             let toolBar = $("<div></div>").addClass('toolBox');
+
+            let btnObj1 = createButton('Bold');
+            let btnObj2 = createButton('Italic');
+
+            toolBar.append(btnObj1).append(btnObj2);
+
             let frameBox = $('<div></div>').addClass('frameBox');
             let frame = $('<iframe></iframe>').addClass('frame');
 
-            $(e).css('display','none'); //Hide the main object
+            $(this).css('display','none'); //Hide the main object
             frameBox.append(frame);
             container.append(toolBar).append(frameBox);
 
-            container.insertBefore(e);
+            container.insertBefore(this);
         }
 
         //A function to create button
-        function createButton(btnTitle,btnClass,btnIcon,btnCallback){
-            
+        function createButton(btnTitle,btnClass = 'btn btn-primary',btnIcon = null ,btnCallback = null){
+            let btnObj = $('<button></button>').addClass(btnClass).text(btnTitle);
+            btnObj.on('click',function(){
+                alert('You clicked on ' + btnTitle);
+            })
+            return btnObj;
         }
 
         // // Greenify the collection based on the settings variable.
