@@ -12,8 +12,10 @@
             height: '200px',            //Default Height fo container
             width: '100%',              //Default width of the container
             backgroundColor: "white",   //Default Backgroud Color of Container
-            buttos: ['bold']
+            buttons: ['bold'],
+            loadFontAwesomeCss: true       //load Font Awesome
         }, options );
+
 
         //Load Default Css file
         if(settings.css){
@@ -24,14 +26,19 @@
              }).appendTo("head");
         }
 
-
-
+        //Load Font Awesome CSS
+        if(settings.css){
+            $("<link/>", {
+                rel: "stylesheet",
+                type: "text/css",
+                href: "css/all.min.css"
+             }).appendTo("head");
+        }
 
         //This will confirm plugin work with multi object
         return this.each(function(){
             create.apply(this);
         });
-
 
         //Create the elements
         function create(){
@@ -39,8 +46,8 @@
             let container = $('<div></div>').addClass('textEditor').css('width',settings.width).css('height',settings.height);
             let toolBar = $("<div></div>").addClass('toolBox');
 
-            let btnObj1 = createButton('Bold');
-            let btnObj2 = createButton('Italic');
+            let btnObj1 = createButton('Bold','bold');
+            let btnObj2 = createButton('Italic','italic');
 
             toolBar.append(btnObj1).append(btnObj2);
 
@@ -55,22 +62,30 @@
         }
 
         //A function to create button
-        function createButton(btnTitle,btnClass = 'btn btn-primary',btnIcon = null ,btnCallback = null){
-            let btnObj = $('<button></button>').addClass(btnClass).text(btnTitle);
-            btnObj.on('click',function(){
-                alert('You clicked on ' + btnTitle);
-            })
+        function createButton(btnTitle,btnIcon = null ,btnClass = 'btn btn-primary' ,btnCallback = null){
+            let btnObj = $('<button></button>').addClass(btnClass);
+            
+            //Set Icon
+            if(btnIcon != null){
+                let icon = $('<i></i>').addClass('fa fa-' + btnIcon);
+                btnObj.append(icon);
+            }else{
+                btnObj.text(btnTitle);
+            }
+
+            //Set Callback function
+            if(btnCallback != null && btnCallback instanceof Function){
+                btnCallback.apply(this);        
+            }else{
+                //Check if predefined function exist
+                switch(btnTitle){
+                    case "bold":
+                        //Do Bold Work
+                        break;
+                }
+            }
             return btnObj;
         }
-
-        // // Greenify the collection based on the settings variable.
-        // return this.css({
-        //     color: settings.color,
-        //     backgroundColor: settings.backgroundColor
-        // });
-        alert('Plugins Called');
- 
     };
- 
 }( jQuery ));
  
