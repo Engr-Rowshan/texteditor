@@ -21,3 +21,8 @@ button.btn.btn-primary {
 	border: solid 1px black;
 	margin-right: 2px;
 }
+
+.spacer {
+	display: inline-block;
+	width: 10px;
+}

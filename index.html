@@ -12,7 +12,16 @@
 
         <script src="js/textEditor.js"></script>
         <script>
-          $("#textBox").textEditor();
+
+          let finding = {
+            title: "Findings",
+            icon: null,
+            type:'insert'
+          }
+
+          $("#textBox").textEditor({
+            buttons:['bold', 'italic','underline', finding]
+          });
         </script>
     </body>
 </html>
